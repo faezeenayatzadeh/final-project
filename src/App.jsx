@@ -1,7 +1,12 @@
+import ClassComponent from "./ClassComponent";
+import FunctionalComponent from "./FunctionalComponent";
+
 const App = () =>  {
     return (
         <div>
-            hello
+            <FunctionalComponent />
+            <br />
+            <ClassComponent />
         </div>
     )
 }
