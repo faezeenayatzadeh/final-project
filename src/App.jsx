@@ -1,4 +1,5 @@
 import Header from "./Header/Header";
+import Products from './Products/Products'
 
 const Footer = () => {
     return (
@@ -13,7 +14,7 @@ const App = () =>  {
         <div>
             <Header />
             <main>
-                محتوای اصلی سایت
+                <Products />
             </main>
             <Footer />
         </div>
