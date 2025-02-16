@@ -1,5 +1,4 @@
-import Header from "./Header/Header";
-import Products from './Products/Products'
+import Products from './Products/Products';
 
 const Footer = () => {
     return (
@@ -12,11 +11,11 @@ const Footer = () => {
 const App = () =>  {
     return (
         <div>
-            <Header />
+            {/* <Header /> */}
             <main>
                 <Products />
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
