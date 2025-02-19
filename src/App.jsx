@@ -1,23 +1,16 @@
 import Products from './Products/Products';
 
-const Footer = () => {
-    return (
-        <footer style={{padding: '20px', color: 'white', backgroundColor: 'blue'}}>
-            فوتر سایت
-        </footer>
-    )
-}
-
 const App = () =>  {
     return (
-        <div>
-            {/* <Header /> */}
-            <main>
-                <Products />
-            </main>
-            {/* <Footer /> */}
-        </div>
+       <Products />
     )
 }
 
 export default App
+
+// useEffect(() => {
+//     fetch('https://dummyjson.com/users')
+//         .then(res => res.text())
+//         .then(res => JSON.parse(res))
+//         .then(res => console.log(res))
+// }, []);
