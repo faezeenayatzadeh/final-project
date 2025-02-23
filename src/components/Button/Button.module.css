@@ -1,0 +1,14 @@
+.root {
+    all: unset;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.small {
+    font-size: 10px;
+}
+
+.big {
+    font-size: 32px;
+}
+

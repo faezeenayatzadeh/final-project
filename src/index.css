@@ -1,0 +1,11 @@
+.container {
+    background: rgb(187, 187, 187);
+    margin: auto 2rem;
+}
+
+.text-big {
+    font-size: 32px;
+}
+.text-small {
+    font-size: 12px;
+}

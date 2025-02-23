@@ -10,6 +10,7 @@ const Products = () => {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState();
 
+    console.log('component re-render');
     console.log({
         products, loading
     });
@@ -19,9 +20,10 @@ const Products = () => {
             .then(res => res.json())
             .then(res => {
                 setProducts(res.products)
-
-                // TODO:
-                setCategories([])
+                console.log('api call is done:');
+                const arr = res.products.map(i => i.category)
+                const unique = [...new Set(arr)]
+                setCategories(unique.map(i => ({id: i, label: i})))
                 setLoading(false)
             })
     }, []);
@@ -46,6 +48,7 @@ const Products = () => {
 
     return (
         <div>
+            <button className='btn font-size-big text-color-red text-red flex flex-row p-20 m-auto'>click</button>
             <Input
                 value={name}
                 placeholder='نام'
@@ -66,7 +69,7 @@ const Products = () => {
                     <option key={category.id} value={category.id}>{category.label}</option>
                 ))}
             </select>            
-            {filteredProducts.map(item => <li key={item.id}>{item.title} {item.price}</li>)}
+            {filteredProducts.map(item => <li key={item.id}>{item.title} {item.price} {item.category}</li>)}
         </div>
     )
 }

@@ -1,6 +1,10 @@
+import styles from './Footer.module.css'
+
 const Footer = () => {
+    console.log(styles);
+    
     return (
-        <footer style={{padding: '20px', color: 'white', backgroundColor: 'blue'}}>
+        <footer className={styles.root }>
             فوتر سایت
         </footer>
     )

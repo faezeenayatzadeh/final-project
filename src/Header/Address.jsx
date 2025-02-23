@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Button from '../components/Button';
+import Button from '../components/Button/Button';
 import { cities } from '../constants/address';
 
 const Address = (props) => {
@@ -10,7 +10,7 @@ const Address = (props) => {
     }, [])
 
     return (
-        <Button color='green'>
+        <Button color='green' size='big'>
             <img />
             <span>ارسال به {cityObject.label}</span>
             <img />
