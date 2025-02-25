@@ -1,3 +1,14 @@
+* {
+    font-family: Vazirmatn, sans-serif !important;
+}
+
+:root {
+    --primary-color: blue;
+    --secondary-color: red;
+    --font-size-big: 32px;
+    --font-size-small: 12px;
+}
+
 .container {
     background: rgb(187, 187, 187);
     margin: auto 2rem;

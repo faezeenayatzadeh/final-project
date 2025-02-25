@@ -1,9 +1,10 @@
+import TextField from '@mui/material/TextField';
+
 const Search = (props) => {
     return (
         <div>
             <img />
-            <span>{props.placeholder}</span>
-            <input />
+            <TextField label={props.placeholder} variant="outlined" />
             <img />
         </div>
     )

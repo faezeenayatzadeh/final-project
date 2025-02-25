@@ -1,6 +1,6 @@
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
-import './index.css'
+import './index.css';
 
 const App = () =>  {
     return (
