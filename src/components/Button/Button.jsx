@@ -1,18 +1,27 @@
-import styles from './Button.module.css'
 import clsx from 'clsx';
-
-const cleanStyle = arr => arr.filter(item => !!item).join(' ')
+import styles from './Button.module.css';
 
 const Button = (props) => {
     return (
-    <button 
-    className={clsx(
-        styles.root,
-        props.size === 'small' && styles.small,
-        props.size === 'big' && styles.big,
-    )}>
-        {props.children}
-    </button>);
+        <button 
+            onClick={props.onClick}
+            className={clsx(
+                styles.root,
+                // ---- size
+                props.size === 'small' && styles.sizeSmall,
+                props.size === 'medium' && styles.sizeMedium,
+                props.size === 'large' && styles.sizeLarge,
+                // --- type
+                props.type === 'primary' && styles.typePrimary,
+                props.type === 'error' && styles.typeError,
+                props.type === 'gray' && styles.typeGray,
+                // --- variant
+                props.variant === 'fill' && styles.variantFill,
+                props.variant === 'outline' && styles.variantOutline,
+            )}>
+                {props.children}
+        </button>
+    );
 };
 
 export default Button;

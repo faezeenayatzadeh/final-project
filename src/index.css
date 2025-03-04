@@ -3,20 +3,65 @@
 }
 
 :root {
-    --primary-color: blue;
+    --primary-color-10: #FAF5EF;
+    --primary-color-20: #6ABFE9;
+    --primary-color-30: #539FC5;
+    --primary-color-40: #30708F;
+    --primary-color-50: #19506B;
+    --primary-color-60: #D6AE81;
+    --primary-color-70: #022639;
+    --primary-color-80: #01131C;
+    --primary-color-90: #010E15;
+
+    --error-color-50: #F3122E;
+    --gray-color-20: #DADADA;
+
+
+    --border-radius-big: 18px;
+
+    --font-family: Vazirmatn;
+
     --secondary-color: red;
     --font-size-big: 32px;
     --font-size-small: 12px;
 }
 
-.container {
-    background: rgb(187, 187, 187);
-    margin: auto 2rem;
+.text-primary-10 {
+    color: var(--primary-color-10);
 }
 
-.text-big {
-    font-size: 32px;
+.text-primary-20 {
+    color: var(--primary-color-20);
 }
-.text-small {
-    font-size: 12px;
+
+.text-primary-30 {
+    color: var(--primary-color-30);
+}
+
+.text-primary-40 {
+    color: var(--primary-color-40);
+}
+
+.text-primary-50 {
+    color: var(--primary-color-50);
+}
+
+.text-primary {
+    color: var(--primary-color-60);
+}
+
+.bg-primary-10 {
+    background: var(--primary-color-10);
+}
+
+.text-primary-70 {
+    color: var(--primary-color-70);
+}
+
+.text-primary-80 {
+    color: var(--primary-color-80);
+}
+
+.text-primary-90 {
+    color: var(--primary-color-90);
 }

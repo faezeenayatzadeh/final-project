@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Text from '../components/Text';
-import { cities } from '../constants/address';
+import Text from '../../components/Text';
+import { cities } from '../../constants/address';
 import Address from './Address';
 import styles from './Header.module.css';
 import Search from './Search';
@@ -14,8 +14,8 @@ const Header = () => {
     const [city, setCity] = useState(cities[0].id);
 
     return (
-        <header className={styles.root}>
-            
+        <header>
+            <h1 className={styles.header}>Hello</h1>
             <FormControl sx={{ width: '300px' }}>
                 <InputLabel id="demo-simple-select-label">شهر خود را انتخاب کنید:</InputLabel>
                 <Select

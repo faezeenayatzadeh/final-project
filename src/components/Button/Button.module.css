@@ -1,14 +1,41 @@
 .root {
     all: unset;
-    border: 1px solid black;
-    padding: 12px;
+    cursor: pointer;
 }
 
-.small {
-    font-size: 10px;
+.sizeSmall {
 }
 
-.big {
-    font-size: 32px;
+.sizeMedium {
 }
 
+.sizeLarge {
+}
+
+.typePrimary {
+
+}
+
+.typeError {
+
+}
+
+.typeGray {
+
+}
+
+.variantFill {
+
+}
+
+.variantOutline {
+}
+
+.variantOutline.typePrimary {
+}
+
+.variantOutline.typeError {
+}
+
+.variantOutline.typeGray {
+}

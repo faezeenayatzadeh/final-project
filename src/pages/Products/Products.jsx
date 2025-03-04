@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Input from '../components/Input';
+import Input from '../../components/Input';
 
 const Products = () => {
     const [name, setName] = useState('');

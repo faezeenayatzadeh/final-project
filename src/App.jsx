@@ -1,14 +1,11 @@
-import Footer from './Footer/Footer';
-import Header from './Header/Header';
 import './index.css';
+import StoryBook from './Storybook/Storybook';
 
 const App = () =>  {
     return (
-       <div>
-            <Header />
-            <Footer />
-       </div>
+        <StoryBook />
     )
+
 }
 
 export default App
