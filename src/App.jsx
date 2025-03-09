@@ -1,9 +1,9 @@
 import './index.css';
-import StoryBook from './Storybook/Storybook';
+import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 
 const App = () =>  {
     return (
-        <StoryBook />
+        <ProductDetailPage />
     )
 
 }
