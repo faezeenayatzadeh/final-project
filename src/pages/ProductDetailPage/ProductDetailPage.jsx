@@ -1,5 +1,5 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import ProductLayoutPage from "../../layout/ProductLayoutPage";
 
 const breadcrumbsBusiness = [
@@ -48,7 +48,7 @@ const Slider = ({images}) => {
                 width: '100px',
                 height: '100px'
             }}>
-            {images[selected]}
+            <img src={images[selected]} alt="" width={100} height={100} />
             </div>
            
             <div style={{
@@ -84,12 +84,37 @@ const Slider = ({images}) => {
 }
 
 const ProductDetailPage = () => { 
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            fetch(`https://dummyjson.com/products/${id}`)
+            .then(res => res.json())
+            .then(res => {
+                setProduct(res)
+                setLoading(false)
+            })
+        }
+    }, [id])
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    console.log(product.images);
+    
 
     return (
         <ProductLayoutPage breadcrumbItems={breadcrumbsBusiness}>
-            <Slider images={images} />
+            <h1>{product?.title}</h1>
+            <h2>{product?.price}$</h2>
+
+            <Slider images={product.images} />
         </ProductLayoutPage>
     );
 };
 
 export default ProductDetailPage;
+// http://localhost:5173/product/3
