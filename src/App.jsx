@@ -4,6 +4,7 @@ import AuthContainer from './pages/Auth/Auth';
 import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
 import ProfileUsers from './pages/Profile/Users/ProfileUsers';
+
 const App = () =>  {
   const isAuth = localStorage.getItem('token') ? true : false;
 
