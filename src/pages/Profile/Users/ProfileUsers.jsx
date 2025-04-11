@@ -1,53 +1,75 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import Modal from "../../../components/Modal/Modal";
 
-const CreateUserForm = ({onSubmit}) => {
+const CreateUserForm = ({onSubmit, editUser, onReset}) => {
     const [form, setForm] = useState({
-        email: '',
-        name: '',
+        email: editUser?.email || '',
+        name: editUser?.name || '',
     })
+
+    useEffect(() => {
+        setForm(editUser ?? {name: '', email: ''})
+    }, [editUser])
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = (e) => {
+        console.log('log');
+        
         e.preventDefault()
-        fetch('http://localhost:8000/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(form)
-        })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            if (res.user) {
-                console.log('success');
-                onSubmit(res.user)
-            } else {
-                console.log('error');
-            }
-        })
+        if (editUser) {
+            // update user
+        } else {
+            // create user
+            fetch('http://localhost:8000/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(form)
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res.user) {
+                    console.log('success');
+                    onSubmit(res.user)
+                } else {
+                    console.log('error');
+                }
+            })
+        }
     }
     
     return (
         <form onSubmit={handleSubmit}>
             <h2>Create User</h2>
-            <TextField label="Email" name="email" onChange={handleChange} />
-            <TextField label="Name" name="name" onChange={handleChange} />
-            <Button type="submit">Create</Button>
+            <TextField value={form.email} label="Email" name="email" onChange={handleChange} />
+            <TextField value={form.name} label="Name" name="name" onChange={handleChange} />
+            <Button type="submit" variant='contained'>{editUser ? 'update' : 'create'}</Button>
+            {editUser && 
+                <Button
+                    onClick={() => onReset()} 
+                    type="reset" 
+                    variant="outlined">Reset
+                </Button>
+            }
         </form>
     )
 }
 
 
 const ProfileUsers = () => {
+    console.log('ProfileUsers');
+    
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
+    const [editUser, setEditUser] = useState(null);
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:8000/api/users', {
@@ -83,14 +105,15 @@ const ProfileUsers = () => {
 
     return (
         <div>
+            {editUser && <Modal onClose={() => setEditUser(null)} />}
             <h2>Profile Users Page</h2>
-           
             <CreateUserForm
+                editUser={editUser}
                 onSubmit={(user) => {
                     setUsers([...users, user])
                 }} 
+                onReset={() => setEditUser(null)}
             />
-
             <h2>Table</h2>
             <div>Search</div>
             <input type="text" placeholder="search" onChange={(e) => setSearch(e.target.value)}/>
@@ -113,11 +136,15 @@ const ProfileUsers = () => {
                                     <td>{user.isAdmin ? 'Admin' : 'User'}</td>
                                     <td>{user.name}</td>
                                     <td>
-                                        <button onClick={() => {}}>Edit</button>
-                                        <button
-                                            onClick={() => handleDeleteUser(user.id)}>
-                                                Delete
-                                        </button>
+                                        <button onClick={() => {setEditUser(user)}}>Edit</button>
+                                        {!user.isAdmin && 
+                                            (
+                                                <button
+                                                    onClick={() => handleDeleteUser(user.id)}>
+                                                        Delete
+                                                </button>
+                                            )
+                                        }
                                     </td>
                                 </tr>
                     ))}
