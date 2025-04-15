@@ -1,6 +1,6 @@
+import ProductLayoutPage from "@/layout/ClientLayout/ProductLayoutPage";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ProductLayoutPage from "../../layout/ProductLayoutPage";
 
 const breadcrumbsBusiness = [
     {label: "دانه قهوه اسپرسو جیورنو", link: "/bussiness/products/1"},

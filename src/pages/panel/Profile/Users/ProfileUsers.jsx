@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Modal from "../../../components/Modal/Modal";
+import Modal from "../../../../components/Modal/Modal";
 
 const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, cancelButtonText = 'Cancel'}) => {
     const isCreateMode = !data;

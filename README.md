@@ -31,3 +31,7 @@ please integrate service to this component and show data coming from service in 
 no need to give me perfect ui, first goal is to see the data, then nice css and structure,
 
 // 2- panel, auth, users, profile, panel - please complete users page, add table or list to render users data
+
+
+issues
+[] - intelisense for alias import routing

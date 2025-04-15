@@ -1,9 +1,9 @@
+import ProductDetailPage from '@/pages/client/ProductDetailPage/ProductDetailPage';
+import AuthContainer from '@/pages/panel/Auth/Auth';
+import MyProfile from '@/pages/panel/Profile/MyProfile/MyProfile';
+import ProfileUsers from '@/pages/panel/Profile/Users/ProfileUsers';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
-import AuthContainer from './pages/Auth/Auth';
-import ProductDetailPage from './pages/ProductDetailPage/ProductDetailPage';
-import MyProfile from './pages/Profile/MyProfile/MyProfile';
-import ProfileUsers from './pages/Profile/Users/ProfileUsers';
 
 const App = () =>  {
   const isAuth = localStorage.getItem('token') ? true : false;
