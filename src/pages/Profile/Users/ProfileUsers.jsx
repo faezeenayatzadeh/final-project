@@ -1,16 +1,13 @@
-import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import Modal from "../../../components/Modal/Modal";
 
-const CreateUserForm = ({onSubmit, editUser, onReset}) => {
-    const [form, setForm] = useState({
-        email: editUser?.email || '',
-        name: editUser?.name || '',
-    })
+const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, cancelButtonText = 'Cancel'}) => {
+    const isCreateMode = !data;
 
-    useEffect(() => {
-        setForm(editUser ?? {name: '', email: ''})
-    }, [editUser])
+    const [form, setForm] = useState({
+        email: data?.email || '',
+        name: data?.name || '',
+    })
 
     const handleChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
@@ -20,12 +17,31 @@ const CreateUserForm = ({onSubmit, editUser, onReset}) => {
         console.log('log');
         
         e.preventDefault()
-        if (editUser) {
-            // update user
-        } else {
+        if (isCreateMode) {
             // create user
             fetch('http://localhost:8000/api/users', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(form)
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res.user) {
+                    console.log('success');
+                    onSubmit(res.user)
+                } else {
+                    console.log('error');
+                }
+            })
+        } else {
+            // update user
+             // create user
+             fetch('http://localhost:8000/api/users/'+ data.id, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -47,16 +63,14 @@ const CreateUserForm = ({onSubmit, editUser, onReset}) => {
     
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Create User</h2>
-            <TextField value={form.email} label="Email" name="email" onChange={handleChange} />
-            <TextField value={form.name} label="Name" name="name" onChange={handleChange} />
-            <Button type="submit" variant='contained'>{editUser ? 'update' : 'create'}</Button>
-            {editUser && 
-                <Button
-                    onClick={() => onReset()} 
-                    type="reset" 
-                    variant="outlined">Reset
-                </Button>
+            <input value={form.email} placeholder="Email" name="email" onChange={handleChange} />
+            <input value={form.name} placeholder="Name" name="name" onChange={handleChange} />
+            <button type="submit">{isCreateMode ? 'create' : 'update'}</button>
+            {!hideCloseButton && 
+                <button
+                    onClick={() => onCancel()} 
+                >{cancelButtonText}
+                </button>
             }
         </form>
     )
@@ -70,6 +84,8 @@ const ProfileUsers = () => {
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
     const [editUser, setEditUser] = useState(null);
+    const [openCreateUserModal, setOpenCreateUserModal] = useState(false);
+    const [deleteUser, setDeleteUser] = useState(null);
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:8000/api/users', {
@@ -105,18 +121,74 @@ const ProfileUsers = () => {
 
     return (
         <div>
-            {editUser && <Modal onClose={() => setEditUser(null)} />}
+            {deleteUser && 
+                <Modal 
+                    onClose={() => setDeleteUser(false)} 
+                    onSubmit={() => {
+                        handleDeleteUser(deleteUser.id)
+                        setDeleteUser(false)
+                    }} 
+                    title="Delete User" 
+                    description={`Are you sure you want to delete ${deleteUser.name}?`}
+                />
+            }
+            {openCreateUserModal && 
+                <Modal 
+                    hideCloseButton={true}
+                    hideSubmitButton={true}
+                    // onClose={() => setCreateUserModal(false)} 
+                    // onSubmit={() => {}} 
+                    title="Create User" 
+                    description={
+                        <UserFormManagement 
+                            data={null}
+                            onSubmit={(user) => {
+                                setUsers([...users, user])
+                                setOpenCreateUserModal(false)
+                            }} 
+                            onCancel={() => setOpenCreateUserModal(false)} 
+                            cancelButtonText="close modal"
+                        />
+                    }
+                />
+            }
+            {editUser && 
+                <Modal 
+                    hideCloseButton={true}
+                    hideSubmitButton={true}
+                    // onClose={() => setEditUser(null)} 
+                    // onSubmit={() => {}} 
+                    title="Edit User" 
+                    description={
+                        <UserFormManagement 
+                            data={editUser}
+                            onSubmit={() => {
+                                fetchUsers()
+                                setEditUser(null)
+                            }} 
+                            onCancel={() => setEditUser(null)} 
+                            cancelButtonText="close modal"
+                    />
+                    }
+                />
+            }
             <h2>Profile Users Page</h2>
-            <CreateUserForm
+            {/* <CreateUserForm
                 editUser={editUser}
                 onSubmit={(user) => {
                     setUsers([...users, user])
                 }} 
                 onReset={() => setEditUser(null)}
-            />
+            /> */}
             <h2>Table</h2>
-            <div>Search</div>
-            <input type="text" placeholder="search" onChange={(e) => setSearch(e.target.value)}/>
+            <button onClick={() => setOpenCreateUserModal(true)}>Create User</button>
+            <br />
+            <br />
+            <span>Search</span>
+            <br />
+            <input type="text" placeholder="by name & email" onChange={(e) => setSearch(e.target.value)}/>
+            <br />
+            <br />
             <table>
                 <thead>
                     <tr>
@@ -129,7 +201,7 @@ const ProfileUsers = () => {
                 <tbody>
                     {loading ? <div>Loading...</div> : 
                         users
-                            .filter(user => user.name.includes(search))
+                            .filter(user => user.name.includes(search) || user.email.includes(search))
                             .map((user) => (
                                 <tr key={user.id} style={{color: user.isAdmin ? 'green' : 'black'}}>
                                     <td>{user.email}</td>
@@ -140,7 +212,7 @@ const ProfileUsers = () => {
                                         {!user.isAdmin && 
                                             (
                                                 <button
-                                                    onClick={() => handleDeleteUser(user.id)}>
+                                                    onClick={() => setDeleteUser(user)}>
                                                         Delete
                                                 </button>
                                             )

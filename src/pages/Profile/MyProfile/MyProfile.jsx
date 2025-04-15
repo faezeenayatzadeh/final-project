@@ -1,7 +1,7 @@
 const MyProfile = () => {
     return (
-        <div>
-            <h1>My Profile</h1>
+        <div id="my-profile">
+            <h1>My Profile hello</h1>
         </div>
     )
 }
