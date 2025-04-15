@@ -1,6 +1,7 @@
 const links = {
     client: {
         home: "/",
+        auth: "/auth",
         product: "/product/:id",
     },
     panel: {

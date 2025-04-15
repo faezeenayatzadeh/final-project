@@ -1,5 +1,6 @@
 import PanelLayout from '@/layout/PanelLayout/PanelLayout';
 import ProductDetailPage from '@/pages/client/ProductDetailPage/ProductDetailPage';
+import AuthPage from '@/pages/panel/Auth/Auth';
 import MyProfile from '@/pages/panel/Profile/MyProfile/MyProfile';
 import ProfileUsers from '@/pages/panel/Profile/Users/ProfileUsers';
 import links from '@/routes/links';
@@ -10,6 +11,10 @@ const client_pages = [
   {
     path: links.client.home,
     element: <div>Home</div>,
+  },
+  {
+    path: links.client.auth,
+    element: <AuthPage />,
   },
   {
     path: links.client.product,
