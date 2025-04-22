@@ -1,3 +1,5 @@
+import { ThemeContext } from '@/context/ThemeContext';
+import { UserContext } from '@/context/UserContext';
 import {
   Alert,
   Box,
@@ -13,7 +15,7 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -23,6 +25,7 @@ const Login = () => {
   const [successful, setSuccessful] = useState('idle');
   const [loginData, setLoginData] = useState(null);
   const navigate = useNavigate();
+  const {setUser} = useContext(UserContext);
 
   async function handleError(error) {
     console.error('ورود ناموفق:', error);
@@ -52,6 +55,7 @@ const Login = () => {
         setSuccessful('success');
         setLoginData(data);
         localStorage.setItem('token', data.token);
+        setUser(data.user)
         navigate('/panel');
         // Handle successful login
       } else {
@@ -240,6 +244,8 @@ const SignUp = () => {
 };
 
 const Auth = () =>  {
+  const theme = useContext(ThemeContext);
+  
     const [tabValue, setTabValue] = useState(0);
     
     const handleTabChange = (event, newValue) => {
@@ -266,6 +272,9 @@ const Auth = () =>  {
               {tabValue === 0 ? <Login /> : <SignUp />}
             </Box>
           </Paper>
+          <button onClick={() => {
+            theme.setTheme(theme.theme === 'light' ? 'dark' : 'light');
+          }}>Change Theme: {theme.theme}</button>
         </Container>
     )
 }

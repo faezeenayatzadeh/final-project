@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { UserContext } from "@/context/UserContext";
+import { useContext, useEffect, useState } from "react";
 import Modal from "../../../../components/Modal/Modal";
 
 const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, cancelButtonText = 'Cancel'}) => {
@@ -78,7 +79,9 @@ const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, 
 
 
 const ProfileUsers = () => {
-    console.log('ProfileUsers');
+    const {user} = useContext(UserContext);
+    console.log(user);
+    
     
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -117,6 +120,10 @@ const ProfileUsers = () => {
         }).finally(() => {
             setLoading(false)
         })
+    }
+
+    if (!user.isAdmin) {
+        return <div>You are not authorized to access this page</div>
     }
 
     return (

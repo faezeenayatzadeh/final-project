@@ -1,13 +1,13 @@
 const links = {
-    client: {
+    client: { // all users
         home: "/",
         auth: "/auth",
         product: "/product/:id",
     },
-    panel: {
+    panel: { // only for authenticated users
         home: "/panel",
         profile: "/panel/profile",
-        users: "/panel/users",
+        users: "/panel/users", // only for admin
     },
 }
 

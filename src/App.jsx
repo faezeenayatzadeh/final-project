@@ -1,6 +1,8 @@
 import PanelLayout from '@/layout/PanelLayout/PanelLayout';
+import HomePage from '@/pages/client/Home/HomePage';
 import ProductDetailPage from '@/pages/client/ProductDetailPage/ProductDetailPage';
 import AuthPage from '@/pages/panel/Auth/Auth';
+import PanelPage from '@/pages/panel/PanelPage';
 import MyProfile from '@/pages/panel/Profile/MyProfile/MyProfile';
 import ProfileUsers from '@/pages/panel/Profile/Users/ProfileUsers';
 import links from '@/routes/links';
@@ -10,7 +12,7 @@ import './index.css';
 const client_pages = [
   {
     path: links.client.home,
-    element: <div>Home</div>,
+    element: <HomePage />,
   },
   {
     path: links.client.auth,
@@ -25,7 +27,7 @@ const client_pages = [
 const panel_pages = [
   {
     isIndex: true,
-    element: <div>Home</div>,
+    element: <PanelPage />,
   },
   {
     path: links.panel.profile,
