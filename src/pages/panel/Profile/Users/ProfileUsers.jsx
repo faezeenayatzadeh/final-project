@@ -2,8 +2,20 @@ import { UserContext } from "@/context/UserContext";
 import { useContext, useEffect, useState } from "react";
 import Modal from "../../../../components/Modal/Modal";
 
+const makeBorderStyleByError = (bool) =>  
+    ({
+        border: '1px solid ' + (bool ? 'red' : 'black'),
+        color: 'purple', 
+        borderRadius: 8,
+        margin: '0 4px'
+    })
+
 const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, cancelButtonText = 'Cancel'}) => {
     const isCreateMode = !data;
+    const [error, setError] = useState({
+        email: false,
+        name: false
+    });
 
     const [form, setForm] = useState({
         email: data?.email || '',
@@ -11,7 +23,31 @@ const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, 
     })
 
     const handleChange = (e) => {
-        setForm({...form, [e.target.name]: e.target.value})
+        const name = e.target.name;
+        const value = e.target.value;
+
+        if (name === 'email') {
+            // Validate email with regex
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(value)) {
+                setError(pre => ({...pre, email: true}));
+            } else {
+                setError(pre => ({...pre, email: false}));
+            }
+            
+            // setting value here
+            setForm({...form, [name]: value})
+        } else {
+            // handle name changes
+            const numberRegex = /\d+/;
+            if (numberRegex.test(value)) {
+                setError(pre => ({...pre, name: true}));
+            } else {
+                setError(pre => ({...pre, name: false}));
+            }
+            
+            setForm({...form, [name]: value})
+        }
     }
 
     const handleSubmit = (e) => {
@@ -61,12 +97,15 @@ const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, 
             })
         }
     }
+
+    const isSubmitDisabled = error.email || error.name;
+    
     
     return (
         <form onSubmit={handleSubmit}>
-            <input value={form.email} placeholder="Email" name="email" onChange={handleChange} />
-            <input value={form.name} placeholder="Name" name="name" onChange={handleChange} />
-            <button type="submit">{isCreateMode ? 'create' : 'update'}</button>
+            <input style={makeBorderStyleByError(error.email)} value={form.email} placeholder="Email" name="email" onChange={handleChange} />
+            <input style={makeBorderStyleByError(error.name)} value={form.name} placeholder="Name" name="name" onChange={handleChange} />
+            <button disabled={isSubmitDisabled} type="submit">{isCreateMode ? 'create' : 'update'}</button>
             {!hideCloseButton && 
                 <button
                     onClick={() => onCancel()} 
@@ -77,11 +116,8 @@ const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, 
     )
 }
 
-
 const ProfileUsers = () => {
     const {user} = useContext(UserContext);
-    console.log(user);
-    
     
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);

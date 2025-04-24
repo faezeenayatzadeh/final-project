@@ -1,3 +1,4 @@
+import { UserContext } from '@/context/UserContext';
 import PanelLayout from '@/layout/PanelLayout/PanelLayout';
 import HomePage from '@/pages/client/Home/HomePage';
 import ProductDetailPage from '@/pages/client/ProductDetailPage/ProductDetailPage';
@@ -6,9 +7,9 @@ import PanelPage from '@/pages/panel/PanelPage';
 import MyProfile from '@/pages/panel/Profile/MyProfile/MyProfile';
 import ProfileUsers from '@/pages/panel/Profile/Users/ProfileUsers';
 import links from '@/routes/links';
+import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
-
 const client_pages = [
   {
     path: links.client.home,
@@ -32,15 +33,20 @@ const panel_pages = [
   {
     path: links.panel.profile,
     element: <MyProfile />,
+    requireAdminRule: false,
   },
   {
     path: links.panel.users,
     element: <ProfileUsers />,
+    requireAdminRule: true,
   }
 ]
  
 const App = () =>  {
   const isAuth = localStorage.getItem('token') ? true : false;
+  const {user} = useContext(UserContext);
+  console.log("user from context: ", user);
+  
 
     return (
         <Routes>
@@ -55,6 +61,17 @@ const App = () =>  {
                         return (
                           <Route key='index-panel' index element={page.element} />
                         )
+                      }
+                      if (page.requireAdminRule) {
+                        if (user.isAdmin) {
+                          return (
+                            <Route key={page.path} path={page.path} element={page.element} />
+                          )
+                        } else {
+                          return (
+                            <Route key={page.path} path={page.path} element={<div>not authiorized app</div>} />
+                          )
+                        }
                       }
                       return (
                         <Route key={page.path} path={page.path} element={page.element} />
