@@ -63,7 +63,7 @@ const App = () =>  {
                         )
                       }
                       if (page.requireAdminRule) {
-                        if (user.isAdmin) {
+                        if (user?.isAdmin) {
                           return (
                             <Route key={page.path} path={page.path} element={page.element} />
                           )
