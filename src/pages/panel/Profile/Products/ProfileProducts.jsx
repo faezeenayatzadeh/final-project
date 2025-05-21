@@ -54,7 +54,7 @@ const ProductFormManagement = ({ onSubmit, data, onCancel, hideCloseButton = fal
         const method = isCreateMode ? 'POST' : 'PUT';
         const url = isCreateMode
             ? 'http://localhost:8000/api/products'
-            : `http://localhost:8000/api/products/${data.id}`; // نکته مهم: باید از data.id استفاده بشه نه form.id
+            : `http://localhost:8000/api/products/${data.id}`; 
 
         fetch(url, {
             method,
