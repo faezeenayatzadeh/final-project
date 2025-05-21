@@ -6,10 +6,12 @@ import AuthPage from '@/pages/panel/Auth/Auth';
 import PanelPage from '@/pages/panel/PanelPage';
 import MyProfile from '@/pages/panel/Profile/MyProfile/MyProfile';
 import ProfileUsers from '@/pages/panel/Profile/Users/ProfileUsers';
+import ProfileProducts from '@/pages/panel/Profile/Products/ProfileProducts';
 import links from '@/routes/links';
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './index.css';
+import ProfileProduct from './pages/panel/Profile/Products/ProfileProducts';
 const client_pages = [
   {
     path: links.client.home,
@@ -39,6 +41,11 @@ const panel_pages = [
     path: links.panel.users,
     element: <ProfileUsers />,
     requireAdminRule: true,
+  },
+  {
+    path: links.panel.products,
+    element: <ProfileProducts />,
+    requireAdminRule: false,
   }
 ]
  

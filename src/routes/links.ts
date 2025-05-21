@@ -8,6 +8,7 @@ const links = {
         home: "/panel",
         profile: "/panel/profile",
         users: "/panel/users", // only for admin
+        products: "/panel/products",
     },
 }
 

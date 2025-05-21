@@ -22,10 +22,11 @@ const UserFormManagement = ({onSubmit, data, onCancel, hideCloseButton = false, 
         name: data?.name || '',
     })
 
+// ****
     const handleChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
-
+// ********
         if (name === 'email') {
             // Validate email with regex
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -216,13 +217,6 @@ const ProfileUsers = () => {
                 />
             }
             <h2>Profile Users Page</h2>
-            {/* <CreateUserForm
-                editUser={editUser}
-                onSubmit={(user) => {
-                    setUsers([...users, user])
-                }} 
-                onReset={() => setEditUser(null)}
-            /> */}
             <h2>Table</h2>
             <button onClick={() => setOpenCreateUserModal(true)}>Create User</button>
             <br />
