@@ -212,7 +212,6 @@ const ProfileProducts = () => {
                 />
             }
 
-            
             {editProduct &&
                 <Modal
                     hideCloseButton={true}

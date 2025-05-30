@@ -48,7 +48,6 @@ const panel_pages = [
     requireAdminRule: false,
   }
 ]
- 
 const App = () =>  {
   const isAuth = localStorage.getItem('token') ? true : false;
   const {user} = useContext(UserContext);
