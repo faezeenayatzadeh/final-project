@@ -31,8 +31,7 @@ const HomePage = () => {
       <p style={{ textAlign: "right", marginRight: "40px" }}>
         من فائزه عنایت زاده‌ام از اصفهان، 16 سالمه و به برنامه نویسی خیلی علاقه دارم و امیدوارم تو این مسیر بتونم خیلی خیلی پیشرفت کنم.
       </p>
-
-      {/* عکس بعد از متن معرفی */}
+      
       <div
         style={{
           display: "flex",
@@ -53,7 +52,6 @@ const HomePage = () => {
         />
       </div>
 
-      {/* دکمه و لینک در یک خط */}
       <div
         style={{
           display: "flex",
